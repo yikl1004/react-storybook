@@ -4,6 +4,7 @@ import { withKnobs, text } from '@storybook/addon-knobs'
 import TextInput from '@components/forms/TextInput'
 import Form from '@components/forms/Form'
 import { useState } from 'react';
+import JSONBeautify from 'json-beautify'
 
 
 export default {
@@ -27,9 +28,10 @@ export const Text_Input = () => {
             <TextInput {...props} />
             
             <br/><br/>
-            <button type="submit">FormData 확인(console.log)</button>
+            <button type="submit">Submit</button>
             <hr/>
-            <p>{ JSON.stringify(formData) }</p>
+            <h2>Result</h2>
+            <p>{ JSONBeautify(formData, null, 4, 20) }</p>
         </Form>
     );
 };
