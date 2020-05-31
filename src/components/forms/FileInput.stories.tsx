@@ -1,41 +1,44 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withKnobs, text } from '@storybook/addon-knobs'
-import TextInput from '@components/forms/TextInput'
+import FileInput from '@components/forms/FileInput'
 import Form from '@components/forms/Form'
-import { useState } from 'react';
-import JSONBeautify from 'json-beautify'
+import { useState, useEffect } from 'react';
+// import JSONBeautify from 'json-beautify'
 
 
 export default {
-    title: 'components|Forms/TextInput',
-    component: TextInput,
+    title: 'components|Forms/FileInput',
+    component: FileInput,
     decorators: [withKnobs],
     parameters: {
         componentSubtitle: '이것은 부제목',
     }
 };
 
-export const Text_Input = () => {
+export const File_Input = () => {
     const [formData, setData] = useState()
+    useEffect(() => {
+        console.log(formData)
+    }, [formData])
     const props = {
-        name: text('name', 'myinput'),
-        label: text('label', '레이블')
-    };
-  
+        name: text('name', 'myfile'),
+        label: text('label', 'upload')
+    }
+
     return (
         <Form onSubmit={(data: any) => setData(data)}>
-            <TextInput {...props} />
+            <FileInput accept={['jpg', 'png', 'gif']} {...props} />
             
             <br/><br/>
             <button type="submit">Submit</button>
             <hr/>
             <h2>Result</h2>
-            <p>{ JSONBeautify(formData, null, 4, 20) }</p>
+            <p>{ JSON.stringify(formData) }</p>
         </Form>
-    );
+    )
 };
 
-Text_Input.story = {
+File_Input.story = {
     name: 'Default'
-};
+}
