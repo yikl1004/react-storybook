@@ -10,7 +10,9 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-hook-form": "^5.7.2",
+    "react-scripts": "3.4.1",
+    "react-spring": "^8.0.27"
   },
   "scripts": {
     "start": "craco start",
@@ -41,6 +43,7 @@
     "@storybook/addon-knobs": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addons": "^5.3.18",
+    "@storybook/preset-create-react-app": "^3.0.0",
     "@storybook/react": "^5.3.18",
     "babel-loader": "^8.1.0",
     "babel-plugin-named-asset-import": "^0.3.6",

@@ -7,7 +7,7 @@ import { DialogProps } from '@storyExample/Dialog'
 
 
 export default {
-    title: 'components|Dialog',
+    title: 'components|Example/Dialog',
     comnponent: Dialog,
     parameters: {
         docs: {

@@ -4,7 +4,7 @@ import Icon, { iconTypes } from '@storyExample/Icon';
 
 export default {
     component: Icon,
-    title: 'components|Icon'
+    title: 'components|Example/Icon'
 };
 
 export const icon = () => <Icon icon="heart" />;

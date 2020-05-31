@@ -1,13 +1,13 @@
 import React from 'react';
-import Hello from '@components/Hello/Hello';
+import Hello from '@storyExample/Hello/Hello';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions'
-import mdx from '@components/Hello/Hello.mdx'
+import mdx from '@storyExample/Hello/Hello.mdx'
 
 
 
 export default {
-    title: 'components|basic/Hello',
+    title: 'components|Example/Hello',
     component: Hello,
     decorators: [withKnobs],
     parameters: {
