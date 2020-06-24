@@ -31,7 +31,7 @@ export const Text_Input = () => {
             <button type="submit">Submit</button>
             <hr/>
             <h2>Result</h2>
-            <p>{ JSONBeautify(formData, null, 4, 20) }</p>
+            <p>{ JSONBeautify(formData, [], 4, 20) }</p>
         </Form>
     );
 };

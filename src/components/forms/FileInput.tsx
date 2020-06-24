@@ -22,7 +22,7 @@ const FileInput = ({ register, name, accept = [], label = '파일업로드', ...
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files as FileList
     
-        if ( files.length && files[0].size > (10 * 1024 * 1024 ) ) {
+        if ( files.length && files[0].size > (10 * Math.pow(1024, 2) )) {
             alert('용량 제한')
             e.target.value = ''
         } else {

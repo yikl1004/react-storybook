@@ -1,13 +1,14 @@
-import React from 'react';
-import Hello from '@storyExample/Hello/Hello';
+/** @jsx jsx */
+import { jsx, css, Global } from '@emotion/core'
+import Root from '@/router'
+import { global } from './style'
 
-const App = () => {
+
+export default function App() {
     return (
-        <div>
-            <h1>Start</h1>
-            <Hello name="안녕" />
+        <div css={ css`display: flex; flex-direction: column; height: 100%;` }>
+            <Global styles={ global } />
+            <Root/>
         </div>
     )
 }
-
-export default App;
