@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
+import { shadow } from '@style/index'
 
 
 const Footer: React.FC = (props) => {
@@ -13,7 +14,7 @@ const Footer: React.FC = (props) => {
 export default Footer
 
 const footer = css`
-    box-shadow: 1px 1px 6px 6px rgba(0, 0, 0, .3);
+    ${shadow}
     text-align: center;
     padding: 40px 0;
     background-color: #000;

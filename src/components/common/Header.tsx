@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import { Link } from 'react-router-dom'
+import { shadow } from '@/style'
 
 
 const linkList = [
@@ -27,7 +28,7 @@ const Header: React.FC = (props) => {
 export default Header
 
 const header = css`
-    box-shadow: 1px 1px 6px 6px rgba(0, 0, 0, .3);
+    ${shadow}
     background-color: #000;
     color: #fff;
     ul {

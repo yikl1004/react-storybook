@@ -5,7 +5,9 @@
             "@/*": ["src/*"],
             "@components/*": ["src/components/*"],
             "@storyExample/*": ["src/components/storyExample/*"],
-            "@pages/*": ["src/pages/*"]
+            "@pages/*": ["src/pages/*"],
+            "@utils/*": ["src/utils/*"],
+            "@style/*": ["src/style/*"]
         }
     }
 }
