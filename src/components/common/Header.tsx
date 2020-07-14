@@ -6,7 +6,8 @@ import { shadow } from '@/style'
 
 const linkList = [
     { display: '메인', to: '/' },
-    { display: '첫번째', to: '/one' }
+    { display: '첫번째', to: '/one' },
+    { display: '두번째', to: '/two' }
 ]
 
 const Header: React.FC = (props) => {
