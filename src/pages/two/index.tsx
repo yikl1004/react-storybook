@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { centerd } from '@/style'
-import { history } from '@/router'
+import { history } from '@store/index'
 import { useCallback } from 'react'
 
 

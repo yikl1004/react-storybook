@@ -1,7 +1,7 @@
 import { init, RematchDispatch, RematchRootState } from '@rematch/core';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createLoadingPlugin from '@rematch/loading';
-import createHistory from 'history/createHashHistory';
+import createHistory from 'history/createBrowserHistory';
 import { models, RootModel } from './models'
 
 const options = {};
