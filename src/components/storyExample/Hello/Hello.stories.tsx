@@ -1,7 +1,8 @@
 import React from 'react';
-import Hello from '@storyExample/Hello/Hello';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions'
+
+import Hello from '@storyExample/Hello/Hello';
 import mdx from '@storyExample/Hello/Hello.mdx'
 
 

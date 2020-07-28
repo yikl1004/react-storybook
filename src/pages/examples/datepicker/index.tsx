@@ -2,13 +2,16 @@
 import { jsx } from '@emotion/core'
 import { centerd } from '@style/index'
 
+interface IProps {
 
-const Notfound404: React.FC = (props: any) => {
+}
+
+const DatepickerPage: React.FC<IProps> = (props) => {
     return (
         <div css={ centerd }>
-            <h1>404 Not Found!!!</h1>
+            <h1>Datepicker</h1>
         </div>
     )
 }
 
-export default Notfound404
+export default DatepickerPage

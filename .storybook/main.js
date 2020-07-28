@@ -9,7 +9,15 @@ module.exports = {
         '@storybook/addon-knobs'
     ],
     presets: [
-        '@storybook/addon-docs/preset'
+        '@storybook/addon-docs/preset',
+        {
+            name: '@storybook/preset-typescript',
+            options: {
+                include: [
+                    path.resolve(__dirname, '../src/components/storyExample')
+                ],
+            },
+        }
     ],
     webpackFinal: (config) => {
         config.resolve.modules = [

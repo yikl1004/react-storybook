@@ -1,14 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { ConnectedRouter } from 'connected-react-router'
+import { Router, Route, Switch } from 'react-router-dom'
 import { history } from '@store/index'
-
-// components
-import Index from '@pages/Index'
-import One from '@pages/one'
-import Two from '@pages/two'
-import NotFound404 from '@pages/NotFound404'
+import ROUTES from '@router/routes'
+import * as Pages from '@router/pages'
 
 // layout
 import DefaultLayout from '@/layouts/Default'
@@ -16,18 +11,34 @@ import DefaultLayout from '@/layouts/Default'
 
 const Root: React.FC = (props) => {
     return (
-        <BrowserRouter>
-            <ConnectedRouter history={ history }>
-                <DefaultLayout>
-                    <Switch>
-                        <Route exact path="/" component={ Index } />
-                        <Route exact path="/one" component={ One } />
-                        <Route exact path="/two" component={ Two } />
-                        <Route component={ NotFound404 } />
-                    </Switch>
-                </DefaultLayout>
-            </ConnectedRouter>
-        </BrowserRouter>
+        <Router history={ history }>
+            <DefaultLayout>
+                <Switch>
+                    { ROUTES.map((route, index) => {
+                        if ( route.hasOwnProperty('routes') ) {
+                            return (
+                                <Route path={ route.path } key={`route-${index}`}>
+                                    <Switch>
+                                        <Route {...route} />
+                                        { route.routes && route.routes.map((subRoute, subIndex) => (
+                                            <Route 
+                                                key={`subroute-${index}-${subIndex}`}
+                                                path={`${route.path}${subRoute.path}`}
+                                                component={ subRoute.component }
+                                            />
+                                        ))}
+                                        <Route component={ Pages.NotFound404 } />
+                                    </Switch>
+                                </Route>
+                            )
+                        } else {
+                            return <Route {...route} key={`route-${index}`} />
+                        }
+                    }) }
+                    <Route component={ Pages.NotFound404 } />
+                </Switch>
+            </DefaultLayout>
+        </Router>
     )
 }
 

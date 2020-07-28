@@ -1,3 +1,6 @@
+import { RouteProps } from 'react-router-dom';
+import { IRoutesItem } from './router/routes';
+
 declare module '*.mdx';
 
 declare module '*.svg' {
@@ -7,4 +10,10 @@ declare module '*.svg' {
 
     const src: string;
     export default src;
+}
+
+declare global {
+    interface IPageProps<T = {}> extends T {
+        routes?: IRoutesItem[]
+    }
 }
