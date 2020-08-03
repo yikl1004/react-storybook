@@ -1,5 +1,6 @@
 import * as Pages from '@router/pages'
-import { createElement } from 'react'
+import { ComponentType, createElement } from 'react'
+import { RouteChildrenProps } from 'react-router-dom'
 
 
 declare global {
@@ -7,7 +8,7 @@ declare global {
         exact?: boolean;
         path?: string;
         name?: string;
-        component: React.FC<any>;
+        component: React.FC<any> | ComponentType<RouteChildrenProps>;
         routes?: IRoutesItem[]
     }
 
@@ -49,6 +50,12 @@ const ROUTES: IRoutesItem[] = [
             }
         ]
         
+    },
+    {
+        name: 'Queries',
+        exact: true,
+        path: '/queries',
+        component: Pages.QueriesPage
     }
 ]
 
