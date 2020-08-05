@@ -1,5 +1,4 @@
 import * as Pages from '@router/pages'
-import { ComponentType, createElement } from 'react'
 import { RouteChildrenProps } from 'react-router-dom'
 
 
@@ -8,7 +7,7 @@ declare global {
         exact?: boolean;
         path?: string;
         name?: string;
-        component: React.FC<any> | ComponentType<RouteChildrenProps>;
+        component: React.FC<any> | React.ComponentType<RouteChildrenProps>;
         routes?: IRoutesItem[]
     }
 
