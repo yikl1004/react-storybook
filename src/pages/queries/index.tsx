@@ -1,12 +1,13 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core'
+import { jsx } from '@emotion/core'
 import { centerd, column } from '@/style'
 import { Redirect, RouteChildrenProps, useLocation } from 'react-router-dom'
-import { Component, Fragment } from 'react'
+import { Component } from 'react'
 import qs from 'query-string'
 import isEmpty from 'lodash/isEmpty'
 import merge from 'lodash/merge'
 import requestAPI, { APIList } from '@/api'
+import Linker from '@components/common/Linker'
 
 
 
@@ -32,26 +33,6 @@ interface IQueriesPageState {
 const useQuery = () => {
     return new URLSearchParams(useLocation().search);
 }
-
-// const QueriesPage: React.FC<IQueriesPageProps> = () => {
-//     const query = useQuery()
-//     const { path: pathname } = useRouteMatch()
-//     const search = qs.stringify({ name: 'default' })
-    
-//     return (
-//         <div css={[centerd, column]}>
-//             <h1>Queries</h1>
-//             { query.get('name') ? 
-//                 <p>name: { query.get('name') }</p>
-//                 :
-//                 <Fragment>
-//                     <p>not found name query</p>
-//                     <Redirect to={{ pathname, search }}/>
-//                 </Fragment>
-//             }
-//         </div>
-//     )
-// }
 
 class QueriesPage extends Component<IQueriesPageProps, IQueriesPageState> {
 
@@ -91,6 +72,7 @@ class QueriesPage extends Component<IQueriesPageProps, IQueriesPageState> {
         return (
             <div css={[centerd, column]}>
                 <h1>Queries</h1>
+                <Linker className="wow" to="/one">LINK</Linker>
                 <p>name: { new URLSearchParams(this.props.history.location.search).get('name') }</p>
                 { employees.length &&
                     <ul>
