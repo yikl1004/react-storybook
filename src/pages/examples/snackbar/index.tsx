@@ -4,7 +4,7 @@ import { centerd } from '@/style'
 import { OptionsObject } from 'notistack';
 import { Component, Fragment, useEffect } from 'react';
 import { loremIpsum } from 'lorem-ipsum'
-import { RouteChildrenProps } from 'react-router-dom';
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, iRootState } from '@/store';
 
@@ -42,13 +42,23 @@ class Snackbar extends Component<ConnectedProps> {
     }
 
     render() {
-        return (
-            <Fragment>
-                <div css={ centerd }>
-                    <h1>Snackbar</h1>
-                </div>
-            </Fragment>
-        )
+        if ( this.props.location.search ) {
+            return (
+                <Fragment>
+                    <div css={ centerd }>
+                        <h1>Snackbar</h1>
+                    </div>
+                </Fragment>
+            )
+        } else {
+            return (
+                <Redirect to={{
+                    pathname: this.props.location.pathname,
+                    search: '?wow=1'
+                }} />
+            )
+        }
+
     }
 }
 
