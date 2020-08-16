@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { centerd } from '@/style'
-import { OptionsObject } from 'notistack';
-import { Component, Fragment, useEffect } from 'react';
+import { Component, Fragment } from 'react';
 import { loremIpsum } from 'lorem-ipsum'
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { RouteChildrenProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, iRootState } from '@/store';
+import FoldingSnackbar from '@/components/dev/FoldingSnackbar';
 
 
 
@@ -20,7 +20,6 @@ const mapState = ({ noti }: iRootState) => ({
 const mapDispatch = (dispatch: Dispatch) => ({
     enqueueSnackbar: dispatch.noti.ENQUEUE_SNACKBAR,
     closeSnackbar: dispatch.noti.CLOSE_SNACKBAR,
-    removeSnackbar: dispatch.noti.REMOVE_SNACKBAR
 })
 
 type ConnectedProps = ISnackbarProp
@@ -35,30 +34,32 @@ class Snackbar extends Component<ConnectedProps> {
             key: 'snackbar-test',
             message: [ loremIpsum(), loremIpsum(), loremIpsum() ]
         })
+
+        this.props.enqueueSnackbar({
+            key: 'ing',
+            message: 'wow',
+            options: {
+                content: (key, message) => (
+                    <FoldingSnackbar id={ key } message={ message } />
+                ),
+                anchorOrigin: { horizontal: 'right', vertical: 'top' },
+                persist: true
+            }
+        })
     }
 
     componentWillUnmount() {
-        this.props.removeSnackbar()
+        this.props.closeSnackbar({ key: 'snackbar-test' })
     }
 
     render() {
-        if ( this.props.location.search ) {
-            return (
-                <Fragment>
-                    <div css={ centerd }>
-                        <h1>Snackbar</h1>
-                    </div>
-                </Fragment>
-            )
-        } else {
-            return (
-                <Redirect to={{
-                    pathname: this.props.location.pathname,
-                    search: '?wow=1'
-                }} />
-            )
-        }
-
+        return (
+            <Fragment>
+                <div css={ centerd }>
+                    <h1>Snackbar</h1>
+                </div>
+            </Fragment>
+        )
     }
 }
 

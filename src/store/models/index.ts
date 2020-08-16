@@ -1,5 +1,6 @@
 // import { ENQUEUE_SNACKBAR, CLOSE_SNACKBAR, REMOVE_SNACKBAR } from './actions';
 
+import { uniqBy } from 'lodash';
 import { OptionsObject } from 'notistack';
 
 // const defaultState = {
@@ -10,6 +11,7 @@ interface INotiItem {
     key: string;
     message: string | string[];
     options?: OptionsObject
+    dismissed?: boolean;
 }
 
 interface INotiState {
@@ -25,13 +27,15 @@ const noti = {
         ENQUEUE_SNACKBAR(prev: INotiState, payload: INotiItem): INotiState {
             if ( Array.isArray(payload.message) ) {
                 return {
-                    notifications: payload.message.map(
-                        (msg, index) => ({
-                            key: `${payload.key}${index}`,
-                            message: msg, 
-                            options: payload.options || { persist: true, variant: 'error' }
-                        })
-                    )
+                    notifications: uniqBy(prev.notifications.concat(
+                        payload.message.map(
+                            (msg, index) => ({
+                                key: `${payload.key}${index}`,
+                                message: msg, 
+                                options: payload.options || { persist: true, variant: 'error' }
+                            })
+                        )
+                    ), 'key')
                 }
             }
             return {
@@ -46,15 +50,18 @@ const noti = {
                 ],
             };
         },
-        CLOSE_SNACKBAR(prev: INotiState, payload?: { key: INotiItem['key'] }): INotiState {
-            if ( !payload ) {
-                return { notifications: [] }
-            }
+        CLOSE_SNACKBAR(prev: INotiState, payload: { key: INotiItem['key'], dismissAll?: boolean }): INotiState {
+
+            const list = prev.notifications.map(notification => {
+                if (!payload.key || notification.key === payload.key || notification.key.includes(payload.key)) {
+                    return { ...notification, dismissed: true }
+                } else {
+                    return notification
+                }
+            })
+            // console.log(JSON.parse(JSON.stringify(list)))
             return {
-                ...prev,
-                notifications: prev.notifications.filter((notification: any) => (
-                    notification.key !== payload.key
-                )),
+                notifications: list
             };
         },
         REMOVE_SNACKBAR(prev: INotiState, payload?: { key: INotiItem['key'] }): INotiState {

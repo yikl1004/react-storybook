@@ -1,13 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { centerd, column } from '@/style'
-import { Redirect, RouteChildrenProps, useLocation } from 'react-router-dom'
+import { Redirect, RouteChildrenProps } from 'react-router-dom'
 import { Component } from 'react'
 import qs from 'query-string'
 import isEmpty from 'lodash/isEmpty'
 import merge from 'lodash/merge'
 import requestAPI, { APIList } from '@/api'
 import Linker from '@components/common/Linker'
+import { Dispatch, iRootState } from '@/store'
+import { connect } from 'react-redux'
 
 
 
@@ -30,11 +32,19 @@ interface IQueriesPageState {
 }
 
 
-const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-}
+const mapState = ({ noti }: iRootState) => ({
+    notifications: noti.notifications
+})
+const mapDispatch = (dispatch: Dispatch) => ({
+    enqueueSnackbar: dispatch.noti.ENQUEUE_SNACKBAR,
+    closeSnackbar: dispatch.noti.CLOSE_SNACKBAR,
+})
 
-class QueriesPage extends Component<IQueriesPageProps, IQueriesPageState> {
+type ConnectedProps = IQueriesPageProps
+    & ReturnType<typeof mapState>
+    & ReturnType<typeof mapDispatch>
+
+class QueriesPage extends Component<ConnectedProps, IQueriesPageState> {
 
     state = {
         pathname: this.props.match?.path,
@@ -56,6 +66,19 @@ class QueriesPage extends Component<IQueriesPageProps, IQueriesPageState> {
 
             this.setState({ employees: res.data })
         }
+
+        this.props.enqueueSnackbar({
+            key: 'queries',
+            message: [
+                'async test1',
+                'async test2',
+                'async test3'
+            ]
+        })
+    }
+
+    componentWillUnmount() {
+        this.props.closeSnackbar({ key: 'queries' })
     }
 
     render() {
@@ -90,4 +113,4 @@ class QueriesPage extends Component<IQueriesPageProps, IQueriesPageState> {
 
 }
 
-export default QueriesPage
+export default connect(mapState, mapDispatch as any)(QueriesPage)

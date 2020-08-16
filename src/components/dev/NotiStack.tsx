@@ -3,7 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { Dispatch, iRootState } from '@/store';
-import { isEmpty, isEqual } from 'lodash';
+// import { isEmpty, isEqual } from 'lodash';
 
 
 let displayed: string[] = [];
@@ -22,30 +22,27 @@ const Notifier = () => {
     };
 
     useEffect(() => {
-        console.log(notifications, displayed)
-        if ( notifications.length ) {
-            const keys = notifications.map(item => item.key)
-            if ( (!isEmpty(keys) || !isEmpty(displayed)) && !isEqual(keys, displayed) ) {
-                closeSnackbar()
+        notifications.forEach(({ key, message, options = {}, dismissed = false }) => {    
+            // console.log(key, dismissed)
+            if (dismissed) {
+                console.log(key)
+                closeSnackbar(key);
+                return;
             }
 
-            notifications.forEach(({ key, message, options = {} }) => {    
-                if (displayed.includes(key)) return;
-    
-                enqueueSnackbar(message, {
-                    key,
-                    ...options,
-                    onExited: (event, myKey) => {
-                        dispatch.noti.REMOVE_SNACKBAR({ key: myKey })
-                        removeDisplayed(myKey);
-                    },
-                });
-    
-                storeDisplayed(key);
-            })
-        } else {
-            closeSnackbar()
-        }
+            if (displayed.includes(key)) return;
+
+            enqueueSnackbar(message, {
+                key,
+                ...options,
+                onExited: (event, myKey) => {
+                    dispatch.noti.REMOVE_SNACKBAR({ key: myKey })
+                    removeDisplayed(myKey);
+                },
+            });
+
+            storeDisplayed(key);
+        })
 
     }, [notifications, closeSnackbar, enqueueSnackbar, dispatch]);
 

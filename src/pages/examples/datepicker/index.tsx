@@ -16,7 +16,6 @@ const mapState = ({ noti }: iRootState) => ({
 const mapDispatch = (dispatch: Dispatch) => ({
     enqueueSnackbar: dispatch.noti.ENQUEUE_SNACKBAR,
     closeSnackbar: dispatch.noti.CLOSE_SNACKBAR,
-    removeSnackbar: dispatch.noti.REMOVE_SNACKBAR
 })
 
 type ConnectedProps = IProps
@@ -34,7 +33,7 @@ class DatepickerPage extends Component<ConnectedProps> {
     }
 
     componentWillUnmount() {
-        this.props.removeSnackbar({ key: 'datepicker' })
+        this.props.closeSnackbar({ key: 'datepicker' })
     }
 
     render() {
