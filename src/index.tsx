@@ -4,10 +4,19 @@ import App from '@/App';
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker';
 import { store } from '@store/index'
+import { SnackbarProvider } from 'notistack';
+import SnackMessage from '@components/dev/SnackMessage';
+import NotiStack from '@components/dev/NotiStack'
+
 
 ReactDOM.render(
     <Provider store={ store }>
-        <App />
+        <SnackbarProvider dense maxSnack={20}
+            content={(key, message) => <SnackMessage id={key} message={message} /> }
+        >
+            <NotiStack />
+            <App />
+        </SnackbarProvider>
     </Provider>,
     document.querySelector('#root')
 );

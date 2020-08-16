@@ -46,7 +46,13 @@ const ROUTES: IRoutesItem[] = [
                 exact: true,
                 path: '/datepicker',
                 component: Pages.ExampleDatepicker
-            }
+            },
+            {
+                name: 'snackbar',
+                exact: true,
+                path: '/snackbar',
+                component: Pages.Snackbar
+            },
         ]
         
     },
